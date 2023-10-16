@@ -1,0 +1,20 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="CustomShapeAppearance">
+        <item name="neumorph_cornerFamily">oval</item>
+        <item name="neumorph_cornerSize">16dp</item>
+
+        <!-- Or if wants different radii depending on the corner. -->
+        <item name="neumorph_cornerSizeTopLeft">16dp</item>
+        <item name="neumorph_cornerSizeTopRight">16dp</item>
+        <item name="neumorph_cornerSizeBottomLeft">16dp</item>
+        <item name="neumorph_cornerSizeBottomRight">16dp</item>
+    </style>
+
+</resources>

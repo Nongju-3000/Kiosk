@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "447661649850",
+    "project_id": "nanumAED",
+    "storage_bucket": "credoaio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447661649850:android:651056cc9e74ff33e23783",
+        "android_client_info": {
+          "package_name": "com.credo.wook.nanumAED"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "447661649850-c656lgi0vargme63aicuui9delgds01q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmL_indRIrJ3BrrdYDKDNZf5ZJ03LDuP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447661649850-c656lgi0vargme63aicuui9delgds01q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447661649850:android:e8b08f3ebc80870ae23783",
+        "android_client_info": {
+          "package_name": "com.wook.web.lighten.nanumAED"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "447661649850-c656lgi0vargme63aicuui9delgds01q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmL_indRIrJ3BrrdYDKDNZf5ZJ03LDuP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447661649850-c656lgi0vargme63aicuui9delgds01q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

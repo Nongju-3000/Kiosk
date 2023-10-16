@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <soup.neumorphism.NeumorphCardView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_gravity="right"
+        android:layout_height="match_parent"
+        app:neumorph_shadowElevation="3dp"
+        app:neumorph_shadowColorLight="#444444"
+        app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+        app:neumorph_backgroundColor="#292929"
+        app:neumorph_shapeType="flat"
+        style="@style/Widget.Neumorph.Button"
+        android:layout_marginRight="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_marginLeft="20dp"
+                android:id="@+id/score_check"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#aaaaaa"
+                android:ems="15"
+                android:gravity="center"
+                android:hint="평가 항목을 입력하세요."
+                android:inputType="text"
+                android:textColor="#ffffff"
+                android:textColorHint="#aaaaaa"
+                android:textSize="45sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <soup.neumorphism.NeumorphButton
+                    android:id="@+id/score_check_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="추가"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="45sp"
+                    android:textColor="#F2634D"
+                    app:neumorph_shadowElevation="3dp"
+                    app:neumorph_shadowColorLight="#444444"
+                    app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                    app:neumorph_backgroundColor="#292929"
+                    app:neumorph_shapeType="flat"
+                    style="@style/Widget.Neumorph.Button"
+                    />
+
+
+                <soup.neumorphism.NeumorphButton
+                    android:id="@+id/score_check_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="확인"
+                    android:layout_weight="1"
+                    android:textColor="#FF9D2B"
+                    app:neumorph_shadowElevation="3dp"
+                    android:textSize="45sp"
+                    app:neumorph_shadowColorLight="#444444"
+                    app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                    app:neumorph_backgroundColor="#292929"
+                    app:neumorph_shapeType="flat"
+                    style="@style/Widget.Neumorph.Button"
+                    />
+
+            </LinearLayout>
+
+            <ListView
+                android:layout_weight="1"
+                android:id="@+id/score_check_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </LinearLayout>
+
+    </soup.neumorphism.NeumorphCardView>
+
+</LinearLayout>
+

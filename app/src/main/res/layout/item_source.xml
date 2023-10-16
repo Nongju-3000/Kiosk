@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#fff"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="SDK Name"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:layout_marginTop="13dp"
+        android:id="@+id/tlt"
+        android:textSize="12dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="10dp"
+        android:autoLink="web"
+        android:text="HyperLink"
+        android:id="@+id/link"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="10dp"
+        android:id="@+id/explain"
+        android:layout_marginBottom="5dp"
+        android:text="explains"
+        android:textColor="#aaa"
+        android:layout_height="wrap_content" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:id="@+id/space3"
+        android:layout_height="10dp" />
+
+</LinearLayout>

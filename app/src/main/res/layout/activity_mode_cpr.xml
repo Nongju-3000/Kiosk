@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_drawer02"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#232323"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/main_containe02r"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/mainName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:autoSizeMaxTextSize="55sp"
+                android:autoSizeMinTextSize="5sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="CPR"
+                android:textColor="#FF6A0D"
+                android:textStyle="bold" />
+        </FrameLayout><!--top menu layout -->
+
+        <LinearLayout
+            android:id="@+id/cpr_timer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:visibility="gone"
+            android:layout_weight="1">
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/cpr_timer_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                app:neumorph_backgroundColor="#292929"
+                app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                app:neumorph_shadowColorLight="#444444"
+                app:neumorph_shadowElevation="3dp"
+                app:neumorph_shapeType="flat">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:autoSizeMaxTextSize="55sp"
+                            android:autoSizeMinTextSize="5sp"
+                            android:autoSizeTextType="uniform"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="Event Time"
+                            android:textColor="#ffffff"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/cpr_timer"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="50dp"
+                            android:layout_weight="1"
+                            android:autoSizeMaxTextSize="55sp"
+                            android:autoSizeMinTextSize="5sp"
+                            android:autoSizeTextType="uniform"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="00:00"
+                            android:textColor="#ffffff" />
+                    </LinearLayout>
+                </LinearLayout>
+            </soup.neumorphism.NeumorphCardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <soup.neumorphism.NeumorphCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:neumorph_backgroundColor="#292929"
+                app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                app:neumorph_shadowColorLight="#444444"
+                app:neumorph_shadowElevation="3dp"
+                app:neumorph_shapeType="flat">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"> <!-- test 1 -->
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
+
+                        <LinearLayout
+                            android:id="@+id/cpr_layout_01"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/anne_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.1">
+
+                                <ImageView
+                                    android:id="@+id/lung01"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/lung0"
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toBottomOf="@id/anne"
+                                    app:layout_constraintDimensionRatio="1:1"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintHeight_percent="0.3"
+                                    app:layout_constraintHorizontal_bias="0.7"
+                                    app:layout_constraintStart_toStartOf="@id/anne"
+                                    app:layout_constraintTop_toTopOf="@id/anne" />
+
+                                <ImageView
+                                    android:id="@+id/babyCircle"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/babycircle"
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toBottomOf="@id/anne"
+                                    app:layout_constraintDimensionRatio="1:1"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintStart_toStartOf="@id/anne"
+                                    app:layout_constraintTop_toTopOf="@id/anne" />
+
+
+                                <ImageView
+                                    android:id="@+id/test_lung01"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/lung_normal_clip"
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toBottomOf="@id/lung01"
+                                    app:layout_constraintEnd_toEndOf="@id/lung01"
+                                    app:layout_constraintStart_toStartOf="@id/lung01"
+                                    app:layout_constraintTop_toTopOf="@id/lung01" />
+
+                                <ImageView
+                                    android:id="@+id/anne"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/anne"
+                                    app:layout_constraintStart_toEndOf="@id/press_position"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintDimensionRatio="100:35"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintWidth_percent="0.7" />
+
+                                <ImageView
+                                    android:id="@+id/press_position"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/sharp_img"
+                                    android:visibility="visible"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintDimensionRatio="1:1"
+                                    app:layout_constraintHeight_percent="0.5"
+                                    app:layout_constraintVertical_bias="0.5"
+                                    app:layout_constraintEnd_toStartOf="@id/anne"/>
+
+                                <ImageButton
+                                    android:id="@+id/press_point_btn"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/press_point"
+                                    android:visibility="invisible"
+                                    app:layout_constraintStart_toStartOf="@id/press_position"
+                                    app:layout_constraintTop_toTopOf="@id/press_position"
+                                    app:layout_constraintBottom_toBottomOf="@id/press_position"
+                                    app:layout_constraintEnd_toEndOf="@id/press_position"
+                                    />
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    app:layout_constraintBottom_toTopOf="@id/standardCPR_btn01"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintStart_toStartOf="@id/anne"
+                                    app:layout_constraintTop_toTopOf="@id/depth_btn_cpr_up"
+                                    app:layout_constraintWidth_percent="0.095">
+
+                                    <View
+                                        android:id="@+id/depthCPR_view01"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:alpha="0.5"
+                                        android:background="#777777" />
+                                </LinearLayout>
+
+
+                                <ImageView
+                                    android:id="@+id/cpr_arrow01"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/cpr_up_arrow"
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toBottomOf="@id/anne"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintHeight_percent="0.3"
+                                    app:layout_constraintStart_toEndOf="@id/depth_btn_cpr_up"
+                                    app:layout_constraintTop_toTopOf="@id/anne" />
+
+                                <ImageView
+                                    android:id="@+id/cpr_arrow01_"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/cpr_down_arrow"
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toBottomOf="@id/anne"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintHeight_percent="0.3"
+                                    app:layout_constraintStart_toEndOf="@id/depth_btn_cpr_up"
+                                    app:layout_constraintTop_toTopOf="@id/anne" />
+
+                                <TextView
+                                    android:id="@+id/remote_arrow_down_text"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:autoSizeMaxTextSize="55sp"
+                                    android:autoSizeMinTextSize="5sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:gravity="center"
+                                    android:text="@string/compress"
+                                    android:textColor="#fff"
+                                    android:visibility="invisible"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintHeight_percent="0.1"
+                                    app:layout_constraintStart_toEndOf="@id/depth_btn_cpr_up"
+                                    app:layout_constraintTop_toBottomOf="@id/cpr_arrow01_" />
+
+                                <TextView
+                                    android:id="@+id/remote_arrow_up_text"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:autoSizeMaxTextSize="55sp"
+                                    android:autoSizeMinTextSize="5sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:text="@string/release"
+                                    android:textColor="#fff"
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toTopOf="@id/cpr_arrow01"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintHeight_percent="0.1"
+                                    app:layout_constraintStart_toEndOf="@id/depth_btn_cpr_up" />
+
+                                <TextView
+                                    android:id="@+id/remote_depth_text"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:autoSizeMaxTextSize="55sp"
+                                    android:autoSizeMinTextSize="5sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:text="0"
+                                    android:textColor="#fff"
+                                    android:visibility="visible"
+                                    app:layout_constraintBottom_toBottomOf="@id/anne"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintHeight_percent="0.13"
+                                    app:layout_constraintHorizontal_bias="0.15"
+                                    app:layout_constraintStart_toStartOf="@id/anne"
+                                    app:layout_constraintTop_toTopOf="@id/anne"
+                                    app:layout_constraintVertical_bias="0.3"
+                                    app:layout_constraintWidth_percent="0.07" />
+
+                                <ImageView
+                                    android:id="@+id/cpr_ani01"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/shine_effect"
+                                    app:layout_constraintBottom_toBottomOf="@id/anne"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintHeight_percent="0.05"
+                                    app:layout_constraintStart_toStartOf="@id/anne"
+                                    app:layout_constraintWidth_percent="0.05" />
+
+                                <ImageView
+                                    android:id="@+id/cpr_ani02"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/shine_effect"
+                                    app:layout_constraintBottom_toBottomOf="@id/anne"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintHeight_percent="0.05"
+                                    app:layout_constraintStart_toStartOf="@id/anne"
+                                    app:layout_constraintWidth_percent="0.05" />
+
+                                <Button
+                                    android:id="@+id/standardCPR_btn01"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/anne_point"
+                                    app:layout_constraintBottom_toBottomOf="@id/anne"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintHeight_percent="0.05"
+                                    app:layout_constraintStart_toStartOf="@id/anne"
+                                    app:layout_constraintWidth_percent="0.13" />
+
+                                <Button
+                                    android:id="@+id/depth_btn_cpr_01"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/position_press"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintHeight_percent="0.05"
+                                    app:layout_constraintStart_toStartOf="@id/anne"
+                                    app:layout_constraintTop_toTopOf="@id/anne"
+                                    app:layout_constraintWidth_percent="0.13" />
+
+                                <Button
+                                    android:id="@+id/depth_btn_cpr_up"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/position_press"
+                                    app:layout_constraintEnd_toEndOf="@id/anne"
+                                    app:layout_constraintHeight_percent="0.05"
+                                    app:layout_constraintStart_toStartOf="@id/anne"
+                                    app:layout_constraintTop_toTopOf="@id/anne"
+                                    app:layout_constraintWidth_percent="0.13" />
+
+                                <LinearLayout
+                                    android:id="@+id/cpr_layout100"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_gravity="bottom"
+                                    android:orientation="horizontal"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintHeight_percent="0.1"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintWidth_percent="0.05">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:autoSizeMaxTextSize="55sp"
+                                        android:autoSizeMinTextSize="5sp"
+                                        android:autoSizeTextType="uniform"
+                                        android:gravity="center"
+                                        android:maxLines="1"
+                                        android:text="100"
+                                        android:textColor="#fff" />
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:id="@+id/cpr_layout110"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_gravity="bottom"
+                                    android:orientation="horizontal"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHeight_percent="0.1"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintWidth_percent="0.05">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:autoSizeMaxTextSize="55sp"
+                                        android:autoSizeMinTextSize="5sp"
+                                        android:autoSizeTextType="uniform"
+                                        android:gravity="center"
+                                        android:maxLines="1"
+                                        android:text="110"
+                                        android:textColor="#fff" />
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:id="@+id/cpr_layout120"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_gravity="bottom"
+                                    android:orientation="horizontal"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHeight_percent="0.1"
+                                    app:layout_constraintWidth_percent="0.05">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:autoSizeMaxTextSize="55sp"
+                                        android:autoSizeMinTextSize="5sp"
+                                        android:autoSizeTextType="uniform"
+                                        android:gravity="center"
+                                        android:maxLines="1"
+                                        android:text="120"
+                                        android:textColor="#fff" />
+                                </LinearLayout>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <FrameLayout
+                                android:id="@+id/position_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <Button
+                                    android:id="@+id/press_ave_btn_cpr_01"
+                                    android:layout_width="80dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/position_press_red" />
+                            </FrameLayout>
+                        </LinearLayout>
+                    </FrameLayout>
+                </LinearLayout><!-- test 1 -->
+            </soup.neumorphism.NeumorphCardView>
+        </LinearLayout><!--Main layout-->
+    </LinearLayout> <!--All Layout -->
+</LinearLayout>

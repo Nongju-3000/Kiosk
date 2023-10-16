@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="600dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text = "@string/notification"
+            android:textSize="50dp"
+            android:textColor="#000000"></TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="레포트를 저장하시겠습니까?"
+            android:textSize="40dp"
+            android:textColor="#000000"></TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="네"
+            android:textColor="#000"
+            android:id="@+id/yesSaveBtn"
+            android:textSize="40dp"
+            android:background="#fff"></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="아니오"
+            android:textColor="#000"
+            android:id="@+id/noSaveBtn"
+            android:textSize="40dp"
+            android:background="#fff"></Button>
+    </LinearLayout>
+</LinearLayout>

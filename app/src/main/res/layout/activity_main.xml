@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.9"
+    android:orientation="vertical"
+    tools:context=".activity.CPRActivity">
+
+    <soup.neumorphism.NeumorphCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        app:neumorph_backgroundColor="#292929"
+        app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+        app:neumorph_shadowColorLight="#444444"
+        app:neumorph_shadowElevation="3dp"
+        app:neumorph_shapeType="flat">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <soup.neumorphism.NeumorphButton
+                    android:id="@+id/connect"
+                    style="@style/Widget.Neumorph.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="연결"
+                    android:textColor="#FF9D2B"
+                    app:neumorph_backgroundColor="#292929"
+                    app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                    app:neumorph_shadowColorLight="#444444"
+                    app:neumorph_shadowElevation="3dp"
+                    app:neumorph_shapeType="flat" />
+
+                <soup.neumorphism.NeumorphButton
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:id="@+id/scan_btn"
+                    style="@style/Widget.Neumorph.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="검색"
+                    android:textColor="#FF6A0D"
+                    app:neumorph_backgroundColor="#292929"
+                    app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                    app:neumorph_shadowColorLight="#444444"
+                    app:neumorph_shadowElevation="3dp"
+                    app:neumorph_shapeType="flat" />
+
+                <soup.neumorphism.NeumorphButton
+                    android:id="@+id/close_btn"
+                    style="@style/Widget.Neumorph.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="닫기"
+                    android:textColor="#FF6A0D"
+                    app:neumorph_backgroundColor="#292929"
+                    app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                    app:neumorph_shadowColorLight="#444444"
+                    app:neumorph_shadowElevation="3dp"
+                    app:neumorph_shapeType="flat" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="밴드 : "
+                        android:textColor="#FF7C2B" />
+
+                    <TextView
+                        android:id="@+id/mac_address_01"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="패드 : "
+                        android:textColor="#FF7C2B" />
+
+                    <TextView
+                        android:id="@+id/mac_address_02"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="30dp"
+                android:orientation="horizontal">
+
+                <ListView
+                    android:id="@+id/List_device"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:choiceMode="multipleChoice" />
+
+                <ListView
+                    android:id="@+id/List_device02"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:choiceMode="multipleChoice" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </soup.neumorphism.NeumorphCardView>
+</LinearLayout>

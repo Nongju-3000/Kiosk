@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <font
+        android:font="@font/sandolgothic"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/sandolgothic"
+        app:fontStyle="normal"
+        app:fontWeight="500"/>
+
+    <font
+        android:font="@font/sandolgothicbold"
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        app:font="@font/sandolgothicbold"
+        app:fontStyle="normal"
+        app:fontWeight="1000"/>
+</font-family>

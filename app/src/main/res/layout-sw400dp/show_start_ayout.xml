@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/show_start_01"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:text="5"
+        android:textSize="150dp"
+        android:textColor="#ffffff"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+        app:neumorph_shadowElevation="3dp"
+        app:neumorph_shadowColorLight="#444444"
+        app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+        app:neumorph_backgroundColor="#FF7C2B"
+        app:neumorph_shapeType="flat"
+        style="@style/Widget.Neumorph.ImageButton"
+        />
+
+</LinearLayout>

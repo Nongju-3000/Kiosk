@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CPRActivity">
+
+    <soup.neumorphism.NeumorphCardView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        app:neumorph_shadowElevation="3dp"
+        app:neumorph_shadowColorLight="#444444"
+        app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+        app:neumorph_backgroundColor="#292929"
+        app:neumorph_shapeType="flat"
+        android:layout_marginRight="10dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/cpr_scan_reset"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_weight="5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:neumorph_shadowElevation="3dp"
+                    app:neumorph_shadowColorLight="#444444"
+                    app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                    app:neumorph_backgroundColor="#242424"
+                    app:neumorph_shapeType="basin"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <soup.neumorphism.NeumorphButton
+                            android:id="@+id/device_btn_aed01"
+                            android:layout_width="650dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:layout_margin="20dp"
+                            android:adjustViewBounds="true"
+                            android:text="AED"
+                            android:textSize="300sp"
+                            android:gravity="center"
+                            android:visibility="invisible"
+                            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+                            app:neumorph_shadowElevation="3dp"
+                            app:neumorph_shadowColorLight="#444444"
+                            app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                            app:neumorph_backgroundColor="#292929"
+                            app:neumorph_shapeType="flat"
+                            style="@style/Widget.Neumorph.ImageButton"
+                            />
+
+
+                        <soup.neumorphism.NeumorphImageButton
+                            android:id="@+id/device_btn_aio_01"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:layout_margin="20dp"
+                            android:src="@drawable/cpr_off"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+                            app:neumorph_shadowElevation="3dp"
+                            app:neumorph_shadowColorLight="#444444"
+                            app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                            app:neumorph_backgroundColor="#292929"
+                            app:neumorph_shapeType="flat"
+                            style="@style/Widget.Neumorph.ImageButton"
+                            />
+
+
+                    </LinearLayout>
+                </soup.neumorphism.NeumorphCardView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <soup.neumorphism.NeumorphButton
+                    android:id="@+id/cpr_dialog_reset"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/setting"
+                    android:textColor="#FF7C2B"
+                    android:autoSizeMaxTextSize="55sp"
+                    android:autoSizeMinTextSize="5sp"
+                    android:autoSizeTextType="uniform"
+                    android:visibility="visible"
+                    android:layout_margin="20dp"
+                    app:neumorph_shadowElevation="3dp"
+                    app:neumorph_shadowColorLight="#444444"
+                    app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                    app:neumorph_backgroundColor="#292929"
+                    app:neumorph_shapeType="flat"
+                    style="@style/Widget.Neumorph.Button"
+                    />
+
+                <soup.neumorphism.NeumorphButton
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/cpr_dialog_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/confirm"
+                    android:autoSizeMaxTextSize="55sp"
+                    android:autoSizeMinTextSize="5sp"
+                    android:autoSizeTextType="uniform"
+                    android:textColor="#FF7C2B"
+                    android:visibility="visible"
+                    android:layout_margin="20dp"
+                    app:neumorph_shadowElevation="3dp"
+                    app:neumorph_shadowColorLight="#444444"
+                    app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                    app:neumorph_backgroundColor="#292929"
+                    app:neumorph_shapeType="flat"
+                    style="@style/Widget.Neumorph.Button"
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </soup.neumorphism.NeumorphCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
