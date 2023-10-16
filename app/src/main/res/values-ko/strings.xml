@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Demo</string>
+    <string name="app_name">키오스크</string>
     <string name="ble_not_supported">You need to turn on Bluetooth to run it</string>
     <string name="connected">connected</string>
     <string name="disconnected">disconnected</string>

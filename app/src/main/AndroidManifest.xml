@@ -28,7 +28,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-        <activity android:name="com.wook.web.lighten.nanumAED.activity.IntroActivity"
+        <activity android:name="com.wook.web.credo.kiosk.activity.IntroActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"
             android:exported="true"
@@ -39,19 +39,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.wook.web.lighten.nanumAED.activity.CPRActivity"
+            android:name="com.wook.web.credo.kiosk.activity.CPRActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan"
             />
 
-        <service android:name="com.wook.web.lighten.nanumAED.ble.BluetoothLeServiceCPR"
+        <service android:name="com.wook.web.credo.kiosk.ble.BluetoothLeServiceCPR"
             android:exported="false"
             android:enabled="true"/>
-        <service android:name="com.wook.web.lighten.nanumAED.utils.FinishService"
+        <service android:name="com.wook.web.credo.kiosk.utils.FinishService"
             android:exported="false"
             android:stopWithTask="false"/>
-        <service android:name="com.wook.web.lighten.nanumAED.activity.CPRActivity"
+        <service android:name="com.wook.web.credo.kiosk.activity.CPRActivity"
             android:stopWithTask="false"/>
 
     </application>

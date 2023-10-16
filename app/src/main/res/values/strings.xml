@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NanumAED</string>
+    <string name="app_name">kiosk</string>
     <string name="ble_not_supported">You need to turn on Bluetooth to run it</string>
     <string name="connected">connected</string>
     <string name="disconnected">disconnected</string>

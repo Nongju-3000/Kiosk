@@ -11,9 +11,9 @@ repositories {
 
 android {
     compileSdkVersion 33
-    buildToolsVersion '30.0.3'
+    buildToolsVersion '33.0.1'
     defaultConfig {
-        applicationId "com.wook.web.lighten.nanumAED"
+        applicationId "com.wook.web.credo.kiosk"
         minSdkVersion 28
         targetSdkVersion 33
         versionCode 49
@@ -34,7 +34,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    namespace 'com.wook.web.lighten.nanumAED'
+    namespace 'com.wook.web.credo.kiosk'
 
 }
 

@@ -1,4 +1,4 @@
-package com.wook.web.lighten.aio_client;
+package com.wook.web.credo.aio_client;
 
 import org.junit.Test;
 

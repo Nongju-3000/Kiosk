@@ -1,7 +1,7 @@
 {
   "project_info": {
     "project_number": "447661649850",
-    "project_id": "nanumAED",
+    "project_id": "kiosk",
     "storage_bucket": "credoaio.appspot.com"
   },
   "client": [
@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:447661649850:android:651056cc9e74ff33e23783",
         "android_client_info": {
-          "package_name": "com.credo.wook.nanumAED"
+          "package_name": "com.credo.wook.kiosk"
         }
       },
       "oauth_client": [
@@ -38,7 +38,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:447661649850:android:e8b08f3ebc80870ae23783",
         "android_client_info": {
-          "package_name": "com.wook.web.lighten.nanumAED"
+          "package_name": "com.wook.web.credo.kiosk"
         }
       },
       "oauth_client": [
