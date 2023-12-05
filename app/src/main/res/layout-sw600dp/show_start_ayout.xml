@@ -9,7 +9,7 @@
         android:id="@+id/show_start_01"
         android:layout_width="700dp"
         android:layout_height="700dp"
-        android:text="5"
+        android:text="시작"
         android:textSize="200dp"
         android:textColor="#ffffff"
         android:layout_gravity="center"

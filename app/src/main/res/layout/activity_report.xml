@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/printView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#292929">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--top -->
+        <LinearLayout
+            android:id="@+id/info_CardView_report"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal">
+
+            <!--score-->
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/cprCardView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:neumorph_backgroundColor="#292929"
+                app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                app:neumorph_shadowColorLight="#444444"
+                app:neumorph_shadowElevation="3dp"
+                app:neumorph_shapeType="flat">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/cprTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:autoSizeMaxTextSize="45sp"
+                        android:autoSizeMinTextSize="5sp"
+                        android:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/sandolgothic"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/cpr_accuracy"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/all_accuracy"
+                        app:layout_constraintHeight_percent="0.2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.05"
+                        app:layout_constraintWidth_percent="0.6" />
+
+                    <TextView
+                        android:id="@+id/all_accuracy"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:autoSizeMaxTextSize="45sp"
+                        android:autoSizeMinTextSize="5sp"
+                        android:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/sandolgothic"
+                        android:gravity="start|center_vertical"
+                        android:maxLines="1"
+                        android:text="100%"
+                        android:textColor="#49c644"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/cprTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cprTextView"
+                        app:layout_constraintTop_toTopOf="@id/cprTextView" />
+
+                    <ImageView
+                        android:id="@+id/depth_accuracy_img"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="3dp"
+                        android:gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/score_03"
+                        app:layout_constraintBottom_toTopOf="@id/depth_average_img"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cprTextView" />
+
+                    <TextView
+                        android:id="@+id/depth_accuracy"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="2dp"
+                        android:autoSizeMaxTextSize="45sp"
+                        android:autoSizeMinTextSize="15sp"
+                        android:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/sandolgothic"
+                        android:gravity="start|center"
+                        android:maxLines="1"
+                        android:text="100%"
+                        android:textColor="#ffffff"
+                        app:layout_constraintBottom_toBottomOf="@id/depth_accuracy_img"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/depth_accuracy_img"
+                        app:layout_constraintTop_toTopOf="@id/depth_accuracy_img" />
+
+                    <ImageView
+                        android:id="@+id/depth_average_img"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="3dp"
+                        android:gravity="center"
+                        android:scaleType="fitCenter"
+                        android:scaleX="1.7"
+                        android:scaleY="1.7"
+                        android:src="@drawable/score_04"
+                        app:layout_constraintBottom_toTopOf="@id/depth_bpm_img"
+                        app:layout_constraintEnd_toEndOf="@id/depth_accuracy_img"
+                        app:layout_constraintStart_toStartOf="@id/depth_accuracy_img"
+                        app:layout_constraintTop_toBottomOf="@id/depth_accuracy_img" />
+
+                    <TextView
+                        android:id="@+id/ave_depth"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginVertical="2dp"
+                        android:autoSizeMaxTextSize="45sp"
+                        android:autoSizeMinTextSize="15sp"
+                        android:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/sandolgothic"
+                        android:gravity="start|center"
+                        android:maxLines="1"
+                        android:text="40.0mm"
+                        android:textColor="#ffffff"
+                        app:layout_constraintBottom_toBottomOf="@id/depth_average_img"
+                        app:layout_constraintEnd_toEndOf="@id/depth_accuracy"
+                        app:layout_constraintStart_toStartOf="@id/depth_accuracy"
+                        app:layout_constraintTop_toTopOf="@id/depth_average_img" />
+
+                    <ImageView
+                        android:id="@+id/depth_bpm_img"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="3dp"
+                        android:gravity="center"
+                        android:scaleType="fitCenter"
+                        android:scaleX="1.2"
+                        android:scaleY="1.2"
+                        android:src="@drawable/score_05"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/depth_accuracy_img"
+                        app:layout_constraintStart_toStartOf="@id/depth_accuracy_img"
+                        app:layout_constraintTop_toBottomOf="@id/depth_average_img" />
+
+                    <TextView
+                        android:id="@+id/report_bpm"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginVertical="2dp"
+                        android:autoSizeMaxTextSize="45sp"
+                        android:autoSizeMinTextSize="15sp"
+                        android:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/sandolgothic"
+                        android:gravity="start|center"
+                        android:maxLines="1"
+                        android:text="120BPM"
+                        android:textColor="#ffffff"
+                        app:layout_constraintBottom_toBottomOf="@id/depth_bpm_img"
+                        app:layout_constraintEnd_toEndOf="@id/depth_accuracy"
+                        app:layout_constraintStart_toStartOf="@id/depth_accuracy"
+                        app:layout_constraintTop_toTopOf="@id/depth_bpm_img" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </soup.neumorphism.NeumorphCardView>
+
+
+            <!--info-->
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/sessionCardView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                app:neumorph_backgroundColor="#292929"
+                app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                app:neumorph_shadowColorLight="#444444"
+                app:neumorph_shadowElevation="3dp"
+                app:neumorph_shapeType="flat">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/sessionInfoLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintEnd_toStartOf="@id/accuracy_layout"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <TextView
+                            android:id="@+id/sesseionTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:autoSizeMaxTextSize="45sp"
+                            android:autoSizeMinTextSize="5sp"
+                            android:autoSizePresetSizes="@array/autosize_text_sizes"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/sandolgothic"
+                            android:gravity="start"
+                            android:maxLines="1"
+                            android:text="@string/session_info"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHeight_percent="0.2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.05"
+                            app:layout_constraintWidth_percent="0.8" />
+
+                        <ImageView
+                            android:id="@+id/report_end_time_img"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_margin="3dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/info_01"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.05"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/sesseionTextView"
+                            app:layout_constraintWidth_percent="0.1" />
+
+                        <TextView
+                            android:id="@+id/report_end_time"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="7dp"
+                            android:autoSizeMaxTextSize="45sp"
+                            android:autoSizeMinTextSize="15sp"
+                            android:autoSizePresetSizes="@array/autosize_text_sizes"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/sandolgothic"
+                            android:gravity="center|start"
+                            android:maxLines="1"
+                            android:text="@string/no_score"
+                            android:textColor="#ffffff"
+                            app:layout_constraintBottom_toBottomOf="@id/report_end_time_img"
+                            app:layout_constraintEnd_toStartOf="@id/cycle_img"
+                            app:layout_constraintStart_toEndOf="@id/report_end_time_img"
+                            app:layout_constraintTop_toTopOf="@id/report_end_time_img" />
+
+                        <ImageView
+                            android:id="@+id/report_interval_img"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginVertical="3dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/info_02"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintEnd_toEndOf="@id/report_end_time_img"
+                            app:layout_constraintStart_toStartOf="@id/report_end_time_img" />
+
+                        <TextView
+                            android:id="@+id/report_interval_sec"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:autoSizeMaxTextSize="45sp"
+                            android:autoSizeMinTextSize="15sp"
+                            android:autoSizePresetSizes="@array/autosize_text_sizes"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/sandolgothic"
+                            android:gravity="center|start"
+                            android:maxLines="1"
+                            android:text="@string/no_score"
+                            android:textColor="#ffffff"
+                            app:layout_constraintBottom_toBottomOf="@id/report_interval_img"
+                            app:layout_constraintEnd_toEndOf="@id/report_end_time"
+                            app:layout_constraintStart_toStartOf="@id/report_end_time"
+                            app:layout_constraintTop_toTopOf="@id/report_interval_img" />
+
+                        <ImageView
+                            android:id="@+id/cycle_img"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/info_03"
+                            app:layout_constraintBottom_toBottomOf="@id/report_end_time_img"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.57"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/report_end_time_img" />
+
+                        <TextView
+                            android:id="@+id/report_cycle"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="7dp"
+                            android:autoSizeMaxTextSize="45sp"
+                            android:autoSizeMinTextSize="15sp"
+                            android:autoSizePresetSizes="@array/autosize_text_sizes"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/sandolgothic"
+                            android:gravity="center|start"
+                            android:maxLines="1"
+                            android:text="@string/no_score"
+                            android:textColor="#ffffff"
+                            app:layout_constraintBottom_toBottomOf="@id/cycle_img"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/cycle_img"
+                            app:layout_constraintTop_toTopOf="@id/cycle_img" />
+
+                        <ImageView
+                            android:id="@+id/depth_correct_img"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginVertical="3dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/info_04"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintEnd_toEndOf="@id/cycle_img"
+                            app:layout_constraintStart_toStartOf="@id/cycle_img" />
+
+                        <TextView
+                            android:id="@+id/report_depth_correct"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:autoSizeMaxTextSize="45sp"
+                            android:autoSizeMinTextSize="15sp"
+                            android:autoSizePresetSizes="@array/autosize_text_sizes"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/sandolgothic"
+                            android:gravity="center|start"
+                            android:maxLines="1"
+                            android:text="@string/no_score"
+                            android:textColor="#ffffff"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="@id/depth_correct_img"
+                            app:layout_constraintEnd_toEndOf="@id/report_cycle"
+                            app:layout_constraintStart_toStartOf="@id/report_cycle"
+                            app:layout_constraintTop_toTopOf="@id/depth_correct_img" />
+
+                        <TextView
+                            android:id="@+id/depth_break"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:autoSizeMaxTextSize="45sp"
+                            android:autoSizeMinTextSize="15sp"
+                            android:autoSizePresetSizes="@array/autosize_text_sizes"
+                            android:autoSizeTextType="uniform"
+                            android:background="#545454"
+                            android:fontFamily="@font/sandolgothic"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="BLOCK"
+                            android:textColor="#ffffff"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="@id/report_depth_correct"
+                            app:layout_constraintEnd_toEndOf="@id/report_depth_correct"
+                            app:layout_constraintStart_toStartOf="@id/report_depth_correct"
+                            app:layout_constraintTop_toTopOf="@id/report_depth_correct" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!--compress-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/accuracy_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+
+                        app:layout_constraintStart_toEndOf="@id/sessionInfoLayout"
+                        app:layout_constraintWidth_percent="0.25">
+
+                        <Button
+                            android:id="@+id/button"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:alpha="0.5"
+                            android:background="@drawable/anne_line"
+                            android:clickable="false"
+                            app:layout_constraintBottom_toBottomOf="@id/report_down_depth"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/report_up_depth"
+                            app:layout_constraintVertical_bias="0.8"
+                            app:layout_constraintWidth_percent="0.6" />
+
+                        <TextView
+                            android:id="@+id/correctCount"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:autoSizeMaxTextSize="45sp"
+                            android:autoSizeMinTextSize="15sp"
+                            android:autoSizePresetSizes="@array/autosize_text_sizes"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/sandolgothic"
+                            android:gravity="end|center"
+                            android:text="25"
+                            android:textColor="#49c644"
+                            app:layout_constraintBottom_toTopOf="@id/report_down_depth"
+                            app:layout_constraintStart_toStartOf="@id/button"
+                            app:layout_constraintTop_toBottomOf="@id/report_up_depth"
+                            app:layout_constraintWidth_percent="0.25" />
+
+                        <TextView
+                            android:id="@+id/slash"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:autoSizeMaxTextSize="45sp"
+                            android:autoSizeMinTextSize="15sp"
+                            android:autoSizePresetSizes="@array/autosize_text_sizes"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/sandolgothic"
+                            android:gravity="center"
+                            android:text="/"
+                            android:textColor="#ffffff"
+                            app:layout_constraintBottom_toTopOf="@id/report_down_depth"
+                            app:layout_constraintStart_toEndOf="@id/correctCount"
+                            app:layout_constraintTop_toBottomOf="@id/report_up_depth"
+                            app:layout_constraintWidth_percent="0.1" />
+
+                        <TextView
+                            android:id="@+id/report_total"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:autoSizeMaxTextSize="45sp"
+                            android:autoSizeMinTextSize="15sp"
+                            android:autoSizePresetSizes="@array/autosize_text_sizes"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/sandolgothic"
+                            android:gravity="start|center"
+                            android:text="35"
+                            android:textColor="#ffffff"
+                            app:layout_constraintBottom_toTopOf="@id/report_down_depth"
+                            app:layout_constraintStart_toEndOf="@id/slash"
+                            app:layout_constraintTop_toBottomOf="@id/report_up_depth"
+                            app:layout_constraintWidth_percent="0.25" />
+
+                        <Button
+                            android:id="@+id/report_up_depth"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:autoSizeMaxTextSize="45sp"
+                            android:autoSizeMinTextSize="15sp"
+                            android:autoSizePresetSizes="@array/autosize_text_sizes"
+                            android:autoSizeTextType="uniform"
+                            android:background="@drawable/ventilation"
+                            android:clickable="false"
+                            android:fontFamily="@font/sandolgothic"
+                            android:maxLines="1"
+                            android:text="-"
+                            android:textColor="#ffffff"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHeight_percent="0.2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.35"
+                            app:layout_constraintWidth_percent="0.8" />
+
+                        <Button
+                            android:id="@+id/report_down_depth"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:autoSizeMaxTextSize="45sp"
+                            android:autoSizeMinTextSize="15sp"
+                            android:autoSizePresetSizes="@array/autosize_text_sizes"
+                            android:autoSizeTextType="uniform"
+                            android:background="@drawable/ventilation"
+                            android:clickable="false"
+                            android:fontFamily="@font/sandolgothic"
+                            android:maxLines="1"
+                            android:text="100%"
+                            android:textColor="#ffffff"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHeight_percent="0.2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.95"
+                            app:layout_constraintWidth_percent="0.8" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/accuracy_layout"
+                        app:layout_constraintWidth_percent="0.2">
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </soup.neumorphism.NeumorphCardView>
+
+        </LinearLayout>    <!--top -->
+
+        <!--middle -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/timeCardView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.97"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.7"
+                app:neumorph_backgroundColor="#292929"
+                app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                app:neumorph_shadowColorLight="#444444"
+                app:neumorph_shadowElevation="1dp"
+                app:neumorph_shapeType="flat">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="5dp"
+                        android:autoSizePresetSizes="@array/must_fixed_sizes"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/sandolgothic"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="2022.07.28"
+                        android:textColor="#ffffff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/time"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.35" />
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="5dp"
+                        android:autoSizePresetSizes="@array/must_fixed_sizes"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/sandolgothic"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="10:24:42 - 10:25:12"
+                        android:textColor="#ffffff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/date"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </soup.neumorphism.NeumorphCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--<ImageView
+            android:id="@+id/printButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center|right"
+            android:src="@drawable/print_icon"
+            android:visibility="gone"/>-->
+
+        <!-- Graph Start-->
+        <ViewFlipper
+            android:id="@+id/graphViewFlipper"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+            <!-- FirstView Start-->
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/graphCardView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:neumorph_backgroundColor="#292929"
+                app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                app:neumorph_shadowColorLight="#444444"
+                app:neumorph_shadowElevation="3dp"
+                app:neumorph_shapeType="flat">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/chart_img"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHeight_percent="0.95"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.98" />
+
+                    <Button
+                        android:id="@+id/release_mark"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/release_rec"
+                        android:clickable="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.7"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.95"
+                        app:layout_constraintWidth_percent="0.015" />
+
+                    <TextView
+                        android:id="@+id/release_cmt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/sandolgothic"
+                        android:gravity="center|start"
+                        android:text="@string/release"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@id/release_mark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.04"
+                        app:layout_constraintStart_toEndOf="@id/release_mark"
+                        app:layout_constraintTop_toTopOf="@id/release_mark"
+                        app:layout_constraintWidth_percent="0.06" />
+
+                    <Button
+                        android:id="@+id/compress_mark"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/compress_rec"
+                        android:clickable="false"
+                        app:layout_constraintBottom_toBottomOf="@id/release_mark"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.8"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/release_mark" />
+
+                    <TextView
+                        android:id="@+id/compress_cmt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/sandolgothic"
+                        android:gravity="start|center"
+                        android:text="@string/compress"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@id/compress_mark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.06"
+                        app:layout_constraintStart_toEndOf="@id/compress_mark"
+                        app:layout_constraintTop_toTopOf="@id/compress_mark"
+                        app:layout_constraintWidth_percent="0.06" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </soup.neumorphism.NeumorphCardView>
+            <!-- FirstView End-->
+            <!-- SecondView Start-->
+            <RelativeLayout
+                android:id="@+id/graphScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:descendantFocusability="blocksDescendants">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/graphRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </RelativeLayout>
+            <!-- SecondView End-->
+        </ViewFlipper>
+        <!-- Graph End-->
+        <!--bottom -->
+
+    </LinearLayout>
+</LinearLayout>

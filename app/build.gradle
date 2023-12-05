@@ -1,7 +1,5 @@
 plugins {
     id 'com.android.application'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
 }
 
 repositories {
@@ -42,10 +40,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.github.angads25:toggle:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.github.mik3y:usb-serial-for-android:3.6.0'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.firebase:firebase-analytics:21.3.0'
-    implementation 'com.google.firebase:firebase-crashlytics:18.4.3'
     testImplementation 'junit:junit:4.13.2'
     implementation 'com.github.jihoon4372:MPAndroidChart:ebf7480820'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -75,14 +72,11 @@ dependencies {
 
     apply plugin: 'com.google.gms.google-services'
 
-    implementation platform('com.google.firebase:firebase-bom:26.7.0')
-    implementation 'com.google.firebase:firebase-database'
-    implementation 'com.google.firebase:firebase-messaging:23.2.1'
-    implementation 'com.google.firebase:firebase-storage:20.2.1'
     implementation "com.polidea.rxandroidble2:rxandroidble:1.17.2"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
-    implementation ('org.jitsi.react:jitsi-meet-sdk:8.3.1') { transitive = true }
     implementation 'com.jakewharton.rx2:replaying-share:2.2.0'
     implementation 'com.txusballesteros:snake:1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.google.code.gson:gson:2.9.0'
 }

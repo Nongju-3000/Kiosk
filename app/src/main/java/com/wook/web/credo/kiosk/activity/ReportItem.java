@@ -1,9 +1,15 @@
 package com.wook.web.credo.kiosk.activity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import com.google.gson.annotations.SerializedName;
 
-public class ReportItem implements Serializable {
+class ReportItem implements Parcelable {
 
     public String getReport_end_time() {
         return report_end_time;
@@ -73,30 +79,30 @@ public class ReportItem implements Serializable {
     public ArrayList<Float> getReport_bletime_list(){ return report_bletime_list; }
 
 
-    private String report_name;
-    private String report_end_time;
-    private String report_interval_sec;
-    private String report_cycle;
-    private String report_depth_correct;
-    private String report_up_depth;     
-    private String report_down_depth;
-    private String report_bpm;
-    private String report_angle;
-    private ArrayList<Float> report_depth_list;
-    private ArrayList<Float> report_presstimeList;
-    private ArrayList<Float> report_breathtime;
-    private ArrayList<Float> report_breathval;
-    private String report_ventil_volume;
-    private String min;
-    private String max;
-    private String depth_correct;
-    private String depth_num;
-    private String position_num;
-    private String position_correct;
-    private String lung_num;
-    private String lung_correct;
-    private ArrayList<Float> stop_time_list;
-    private ArrayList<Float> report_bletime_list;
+    @SerializedName("report_name") private String report_name;
+    @SerializedName("report_end_time") private String report_end_time;
+    @SerializedName("report_interval_sec") private String report_interval_sec;
+    @SerializedName("report_cycle") private String report_cycle;
+    @SerializedName("report_depth_correct") private String report_depth_correct;
+    @SerializedName("report_up_depth") private String report_up_depth;
+    @SerializedName("report_down_depth") private String report_down_depth;
+    @SerializedName("report_bpm") private String report_bpm;
+    @SerializedName("report_angle") private String report_angle;
+    @SerializedName("report_depth_list") private ArrayList<Float> report_depth_list;
+    @SerializedName("report_presstimeList") private ArrayList<Float> report_presstimeList;
+    @SerializedName("report_breathtime") private ArrayList<Float> report_breathtime;
+    @SerializedName("report_breathval") private ArrayList<Float> report_breathval;
+    @SerializedName("report_ventil_volume") private String report_ventil_volume;
+    @SerializedName("min") private String min;
+    @SerializedName("max") private String max;
+    @SerializedName("depth_correct") private String depth_correct;
+    @SerializedName("depth_num") private String depth_num;
+    @SerializedName("position_num") private String position_num;
+    @SerializedName("position_correct") private String position_correct;
+    @SerializedName("lung_num") private String lung_num;
+    @SerializedName("lung_correct") private String lung_correct;
+    @SerializedName("stop_time_list") private ArrayList<Float> stop_time_list;
+    @SerializedName("report_bletime_list") private ArrayList<Float> report_bletime_list;
 
     public ReportItem(String report_name,
                       String report_end_time,
@@ -147,6 +153,16 @@ public class ReportItem implements Serializable {
         this.lung_correct = lung_correct;
         this.stop_time_list = stop_time_list;
         this.report_bletime_list = report_ble_time_list;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+
     }
 }
 

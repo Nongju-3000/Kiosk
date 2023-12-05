@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="autosize_text_sizes">
+        <item>5sp</item>
+        <item>7sp</item>
+        <item>11sp</item>
+        <item>15sp</item>
+        <item>20sp</item>
+        <item>25sp</item>
+        <item>30sp</item>
+        <item>35sp</item>
+        <item>40sp</item>
+        <item>45sp</item>
+        <item>50sp</item>
+        <item>55sp</item>
+        <item>60sp</item>
+        <item>65sp</item>
+        <item>70sp</item>
+        <item>100sp</item>
+    </array>
+    <array name="must_fixed_sizes">
+        <item>7sp</item>
+        <item>12sp</item>
+        <item>17sp</item>
+        <item>22sp</item>
+        <item>27sp</item>
+        <item>32sp</item>
+        <item>37sp</item>
+        <item>42sp</item>
+        <item>47sp</item>
+        <item>52sp</item>
+        <item>57sp</item>
+        <item>60sp</item>
+        <item>65sp</item>
+        <item>70sp</item>
+        <item>100sp</item>
+    </array>
+</resources>

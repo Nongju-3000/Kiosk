@@ -5,8 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature android:name="android.hardware.usb.host" />
+    <uses-permission android:name="android.permission.USB_PERMISSION" />
 
     <application
         android:allowBackup="false"
@@ -30,7 +32,7 @@
         </provider>
         <activity android:name="com.wook.web.credo.kiosk.activity.IntroActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:exported="true"
             >
             <intent-filter>
@@ -43,17 +45,22 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan"
-            />
-
-        <service android:name="com.wook.web.credo.kiosk.ble.BluetoothLeServiceCPR"
-            android:exported="false"
-            android:enabled="true"/>
-        <service android:name="com.wook.web.credo.kiosk.utils.FinishService"
-            android:exported="false"
-            android:stopWithTask="false"/>
-        <service android:name="com.wook.web.credo.kiosk.activity.CPRActivity"
-            android:stopWithTask="false"/>
-
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+                <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter"/>
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_DETACHED"
+                android:resource="@xml/device_filter"/>
+        </activity>
+        <activity android:name=".activity.ReportActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:exported="true"/>
     </application>
 
 </manifest>
