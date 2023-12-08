@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 public class AutoFitTextureView extends TextureView {
 
-    private int mRatioWidth = 0;
-    private int mRatioHeight = 0;
+    private final int mRatioWidth = 0;
+    private final int mRatioHeight = 0;
     private boolean mWithMargin = false;
 
     public AutoFitTextureView(Context context) {
@@ -32,7 +32,7 @@ public class AutoFitTextureView extends TextureView {
 
         if(!mWithMargin) {
             mWithMargin = true;
-            ViewGroup.MarginLayoutParams margins = ViewGroup.MarginLayoutParams.class.cast(getLayoutParams());
+            ViewGroup.MarginLayoutParams margins = (ViewGroup.MarginLayoutParams) getLayoutParams();
             margins.topMargin = -margin;
             margins.bottomMargin = -margin;
             margins.leftMargin = 0;

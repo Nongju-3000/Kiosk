@@ -89,7 +89,7 @@ public class BluetoothLeServiceCPR extends Service {
     public static ArrayList<Boolean> isCharARegistereds = new ArrayList<>();
     private static RxBleClient rxBleClient;
 
-    private Handler mHander = new Handler(Looper.getMainLooper());
+    private final Handler mHander = new Handler(Looper.getMainLooper());
     private boolean isStart = false;
     private String mode = "";
 
@@ -138,8 +138,8 @@ public class BluetoothLeServiceCPR extends Service {
     private Thread sendReferThread = null;
     private boolean isHandlerFree = true;
 
-    private ArrayList<Integer> min_list = new ArrayList<>();
-    private ArrayList<Integer> max_list = new ArrayList<>();
+    private final ArrayList<Integer> min_list = new ArrayList<>();
+    private final ArrayList<Integer> max_list = new ArrayList<>();
 
     private void sendCalibration(int index) {
         Print.e(TAG, "sendCalibration Call!");
@@ -350,7 +350,7 @@ public class BluetoothLeServiceCPR extends Service {
         }
     }
 
-    private Runnable beepRun = () -> {
+    private final Runnable beepRun = () -> {
         playBeepSound();
         beepSchedule(true);
     };
@@ -564,7 +564,7 @@ public class BluetoothLeServiceCPR extends Service {
             final StringBuilder stringBuilder = new StringBuilder(bytes.length);
             for (byte byteChar : bytes)
                 stringBuilder.append(String.format("%02X ", byteChar));
-            intent.putExtra(EXTRA_DATA, stringBuilder.toString() + "," + CHAR_BREATH_UUID + "," + bleDevice.getMacAddress());
+            intent.putExtra(EXTRA_DATA, stringBuilder + "," + CHAR_BREATH_UUID + "," + bleDevice.getMacAddress());
         }
         sendBroadcast(intent);
     }
@@ -586,20 +586,20 @@ public class BluetoothLeServiceCPR extends Service {
         setCompositeDisposable();
     }
 
-    private ArrayList<RxBleConnection> mRxBleConnections = new ArrayList<>();
-    private PublishSubject<Boolean> disconnectTriggerSubject = PublishSubject.create();
+    private final ArrayList<RxBleConnection> mRxBleConnections = new ArrayList<>();
+    private final PublishSubject<Boolean> disconnectTriggerSubject = PublishSubject.create();
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final CompositeDisposable statecompositeDisposable = new CompositeDisposable();
-    private ArrayList<Boolean> isregisterstateDisposable = new ArrayList<Boolean>() {{
+    private final ArrayList<Boolean> isregisterstateDisposable = new ArrayList<Boolean>() {{
         add(false);
         add(false);
     }};
     public CompositeDisposable notiDisposable = new CompositeDisposable();
-    private ArrayList<RxBleConnection.RxBleConnectionState> connectionChecking = new ArrayList<>();
-    private CompositeDisposable angleDisposables = new CompositeDisposable();
-    private Handler angleHandler = new Handler(Looper.getMainLooper());
-    private ArrayList<Disposable> connectionDisposables = new ArrayList<>();
-    private CompositeDisposable connectCompositeDisposable = new CompositeDisposable();
+    private final ArrayList<RxBleConnection.RxBleConnectionState> connectionChecking = new ArrayList<>();
+    private final CompositeDisposable angleDisposables = new CompositeDisposable();
+    private final Handler angleHandler = new Handler(Looper.getMainLooper());
+    private final ArrayList<Disposable> connectionDisposables = new ArrayList<>();
+    private final CompositeDisposable connectCompositeDisposable = new CompositeDisposable();
 
     public boolean connect(final String macAddress, int index) {
         RxBleDevice bleDevice = rxBleClient.getBleDevice(macAddress);

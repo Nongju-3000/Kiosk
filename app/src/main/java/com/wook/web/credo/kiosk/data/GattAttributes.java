@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class GattAttributes {
 
-    private static HashMap<String, String> attributes = new HashMap();
+    private static final HashMap<String, String> attributes = new HashMap();
 
     public static String HEART_RATE_MEASUREMENT = "0000fff0-0000-1000-8000-00805f9b34fb";
 

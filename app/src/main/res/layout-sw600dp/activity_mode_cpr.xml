@@ -277,27 +277,6 @@
                                     app:layout_constraintHeight_percent="0.1"
                                     app:layout_constraintStart_toEndOf="@id/depth_btn_cpr_up" />
 
-                                <TextView
-                                    android:id="@+id/remote_depth_text"
-                                    android:layout_width="0dp"
-                                    android:layout_height="0dp"
-                                    android:autoSizeMaxTextSize="55sp"
-                                    android:autoSizeMinTextSize="5sp"
-                                    android:autoSizeTextType="uniform"
-                                    android:gravity="center"
-                                    android:maxLines="1"
-                                    android:text="0"
-                                    android:textColor="#fff"
-                                    android:visibility="visible"
-                                    app:layout_constraintBottom_toBottomOf="@id/anne"
-                                    app:layout_constraintEnd_toEndOf="@id/anne"
-                                    app:layout_constraintHeight_percent="0.13"
-                                    app:layout_constraintHorizontal_bias="0.15"
-                                    app:layout_constraintStart_toStartOf="@id/anne"
-                                    app:layout_constraintTop_toTopOf="@id/anne"
-                                    app:layout_constraintVertical_bias="0.3"
-                                    app:layout_constraintWidth_percent="0.07" />
-
                                 <ImageView
                                     android:id="@+id/cpr_ani01"
                                     android:layout_width="0dp"

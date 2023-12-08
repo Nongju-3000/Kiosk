@@ -11,10 +11,10 @@ import com.wook.web.credo.kiosk.R;
 public class SoundPoolHandler {
     Context context;
     private static final int streamType = AudioManager.STREAM_MUSIC;
-    private AudioManager audioManager;
-    private int maxVolumeIndex;
-    private float volume;
-    private SoundPool soundPool;
+    private final AudioManager audioManager;
+    private final int maxVolumeIndex;
+    private final float volume;
+    private final SoundPool soundPool;
     private boolean isLoaded = false;
     private int soundBeep = 0;
 

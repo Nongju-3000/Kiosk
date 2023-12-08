@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 repositories {
@@ -14,8 +15,8 @@ android {
         applicationId "com.wook.web.credo.kiosk"
         minSdkVersion 28
         targetSdkVersion 33
-        versionCode 49
-        versionName "5.1.8"
+        versionCode 1
+        versionName "0.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,9 +41,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.github.angads25:toggle:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.github.mik3y:usb-serial-for-android:3.6.0'
+    implementation 'com.github.mik3y:usb-serial-for-android:3.7.0'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.core:core-ktx:1.10.0'
     testImplementation 'junit:junit:4.13.2'
     implementation 'com.github.jihoon4372:MPAndroidChart:ebf7480820'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -52,8 +54,6 @@ dependencies {
     }
 
     implementation 'com.github.fornewid:neumorphism:0.3.2'
-    //implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
     def room_version = "2.5.2"
@@ -69,9 +69,7 @@ dependencies {
 
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
-
     apply plugin: 'com.google.gms.google-services'
-
     implementation "com.polidea.rxandroidble2:rxandroidble:1.17.2"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'

@@ -40,13 +40,16 @@ import com.wook.web.credo.kiosk.R;
 
 import java.util.ArrayList;
 
+import soup.neumorphism.NeumorphButton;
 import soup.neumorphism.NeumorphCardView;
+import soup.neumorphism.NeumorphImageButton;
 
 public class ReportActivity extends AppCompatActivity {
     ReportItem reportItem;
     private BackPressCloseHandler backPressCloseHandler;
     private LineChart chart;
     private Button report_up_depth, report_down_depth;
+    private NeumorphButton backBtn;
     private ArrayList<Float> chart_item, pressTime_list;
     private TextView all_accuracy, depth_accuracy;
     private String min, max;
@@ -54,7 +57,8 @@ public class ReportActivity extends AppCompatActivity {
     private float prev_val = 0f, prev_xval = 0f, prev_bval = 0f, prev_bxval = 0f;
     private TextView date, time, report_end_time, report_interval_sec, report_cycle, report_depth_correct,
             correctCount, report_bpm, report_total, ave_depth;
-    private ArrayList<Float> stop_list = new ArrayList<>(), ble_list = new ArrayList<>();
+    private ArrayList<Float> stop_list = new ArrayList<>();
+    private final ArrayList<Float> ble_list = new ArrayList<>();
     final float breath_limit = 10.0f, breath_threshold = 50.0f;
 
     @Override
@@ -84,6 +88,9 @@ public class ReportActivity extends AppCompatActivity {
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
         ave_depth = findViewById(R.id.ave_depth);
+        backBtn = findViewById(R.id.backBtn);
+
+        backBtn.setOnClickListener(v -> onBackPressed());
 
         String today = getIntent().getStringExtra("today");
         String[] split = today.split("/");
@@ -94,10 +101,10 @@ public class ReportActivity extends AppCompatActivity {
         String hour = String.format("%02d", time_sec / 3600);
         String miniute = String.format("%02d", (time_sec % 3600) / 60);
         String sec = String.format("%02d", time_sec % 60);
-        time.setText(split[1] + " - " + hour + ":" + miniute + ":" + sec);;
+        time.setText(split[1] + " - " + hour + ":" + miniute + ":" + sec);
 
-        report_end_time.setText(reportItem.getReport_end_time() + " sec");
-        report_interval_sec.setText(reportItem.getReport_interval_sec() + " sec");
+        report_end_time.setText(reportItem.getReport_end_time() + " 초");
+        report_interval_sec.setText(reportItem.getReport_interval_sec() + " 초");
         report_cycle.setText(reportItem.getReport_cycle());
 
         report_depth_correct.setVisibility(View.VISIBLE);
@@ -119,7 +126,7 @@ public class ReportActivity extends AppCompatActivity {
         } else if (Integer.parseInt(reportItem.getReport_down_depth()) >= 0) {
             report_down_depth.setTextColor(Color.RED);
         }
-        report_bpm.setText(reportItem.getReport_bpm() + " BPM");
+        report_bpm.setText("분당 압박 횟수: " + reportItem.getReport_bpm() );
 
         chart_item = reportItem.getReport_depth_list();
         pressTime_list = reportItem.getReport_presstime_list();
@@ -390,9 +397,9 @@ public class ReportActivity extends AppCompatActivity {
                 ll = new LimitLine(stop_xval.get(i), " ");
             else {
                 try {
-                    ll = new LimitLine(stop_xval.get(i), (String.format("%.1f", stop_list.get(i / 2)) + " Secs  "));
+                    ll = new LimitLine(stop_xval.get(i), (String.format("%.1f", stop_list.get(i / 2)) + " 초  "));
                 } catch (IndexOutOfBoundsException e) {
-                    ll = new LimitLine(stop_xval.get(i), "2.0 Secs  ");
+                    ll = new LimitLine(stop_xval.get(i), "2.0 초  ");
                 }
             }
             ll.setLineWidth(1f);

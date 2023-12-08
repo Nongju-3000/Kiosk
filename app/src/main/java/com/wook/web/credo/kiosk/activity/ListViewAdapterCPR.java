@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ListViewAdapterCPR extends BaseAdapter {
 
     private ArrayList<UserItem> list;
-    private Activity activity;
+    private final Activity activity;
 
     // 생성할 클래스
     ListViewAdapterCPR(Activity activity, ArrayList<UserItem> list ){
@@ -24,7 +24,6 @@ public class ListViewAdapterCPR extends BaseAdapter {
         this.list = new ArrayList<UserItem>();
         this.list = list;
     }
-
 
     @Override
     public int getCount() {

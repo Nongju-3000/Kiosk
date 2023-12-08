@@ -501,6 +501,32 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/accuracy_layout"
                         app:layout_constraintWidth_percent="0.2">
+
+                        <soup.neumorphism.NeumorphButton
+                            android:id="@+id/backBtn"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            app:neumorph_inset="5dp"
+                            android:layout_margin="5dp"
+                            android:text="뒤로 가기"
+                            android:textColor="#ffffff"
+                            android:autoSizeTextType="uniform"
+                            android:maxLines="1"
+                            app:layout_constraintWidth_percent="1"
+                            app:layout_constraintHeight_percent="0.5"
+                            app:layout_constraintVertical_bias="0.5"
+                            app:neumorph_backgroundColor="#292929"
+                            app:neumorph_shadowColorDark="@color/design_dark_default_color_shadow_dark"
+                            app:neumorph_shadowColorLight="#444444"
+                            app:neumorph_shadowElevation="1dp"
+                            app:neumorph_shapeType="flat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginStart="10dp"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </soup.neumorphism.NeumorphCardView>
@@ -511,6 +537,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="80dp">
+
 
             <soup.neumorphism.NeumorphCardView
                 android:id="@+id/timeCardView"

@@ -33,7 +33,7 @@ public class UserItem implements Serializable {
     public int getHand_off_end(){return hand_off_end; }
 
     private int depth;
-    private int time;
+    private final int time;
     private int depth_correct;
     private int angle;
     private int position;

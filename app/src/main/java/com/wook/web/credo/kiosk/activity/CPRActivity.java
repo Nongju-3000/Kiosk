@@ -1,20 +1,14 @@
 package com.wook.web.credo.kiosk.activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -22,17 +16,12 @@ import android.graphics.drawable.LayerDrawable;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.IBinder;
 import android.os.Looper;
-import android.os.Parcelable;
 import android.os.SystemClock;
 import android.util.Log;
 import android.util.SparseIntArray;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
@@ -51,6 +40,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -60,34 +50,25 @@ import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialPort;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
 import com.hoho.android.usbserial.util.SerialInputOutputManager;
-import com.polidea.rxandroidble2.RxBleDevice;
 import com.wook.web.credo.kiosk.BuildConfig;
 import com.wook.web.credo.kiosk.R;
-import com.wook.web.credo.kiosk.ble.BluetoothLeServiceCPR;
-import com.wook.web.credo.kiosk.db.AppDatabase;
-import com.wook.web.credo.kiosk.db.Converters;
-import com.wook.web.credo.kiosk.db.Report;
+import com.wook.web.credo.kiosk.utils.MediaPlayerHandler;
 
 import java.io.IOException;
-import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Objects;
 
-import io.reactivex.disposables.Disposable;
 import soup.neumorphism.NeumorphButton;
-import soup.neumorphism.NeumorphImageButton;
 
 @SuppressLint({"LogNotTimber", "SetTextI18n", "SimpleDateFormat"})
 public class CPRActivity extends AppCompatActivity implements SerialInputOutputManager.Listener {
     @Override
     public void onNewData(byte[] data) {
-        handler.post(() ->{
-           receive(data);
+        handler.post(() -> {
+            receive(data);
         });
     }
 
@@ -95,11 +76,10 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
     public void onRunError(Exception e) {
         handler.post(() -> {
             Log.e(TAG, "onRunError connection lost: " + e.getMessage());
-            connect();
         });
     }
 
-    static class ListItem{
+    static class ListItem {
         UsbDevice device;
         int port;
         UsbSerialDriver driver;
@@ -110,6 +90,7 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
             this.driver = driver;
         }
     }
+
     private final static String TAG = CPRActivity.class.getSimpleName();
     private static int depth_true, depth_false, depth_over;
     private static ToBinary ToBinary;
@@ -121,8 +102,7 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
     public static ListViewAdapterCPR listViewAdapterCPR;
     public static ListView listviewCPR;
     private USBDeviceListAdapter usbDeviceListAdapter;
-    private static final int REQUEST_ENABLE_BT = 1;
-    private static final long SCAN_PERIOD = 20000; //scan time 4000
+    //scan time 4000
     private Button depth_btn01, press_ave_btn01, standard_btn01;
     private View view01;
     private ImageView lung01, test_lung01, cpr_arrow01, cpr_arrow01_, cpr_ani01, cpr_ani02, press_position;
@@ -132,7 +112,13 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
     private long MillisecondTime, StartTime, TimeBuff, UpdateTime, interval01, StartTime_L = 0L;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private int score_01, cycle_01 = 0;
-    private int cycle = 30;
+    private int tooDeep = 0;
+    private int tooShallow = 0;
+    private final int tooFast = 0;
+    private final int tooSlow = 0;
+    private int tryRelease = 0;
+    private int correct = 0;
+    private final int cycle = 30;
     private int Seconds_, Seconds, Minutes, mSeconds_, handOff_01;
 
     private final ArrayList<Float> breathVal01 = new ArrayList<Float>() {{
@@ -146,16 +132,32 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
         add(0f);
     }};
     private ArrayList<Float> lungTimeList01;
-    private boolean isBreath01 = false, device2_connect = false, testMode = false, playCheck = false, isCali01 = false,
-            isAdult = true, isReversed = false, isLungDrawing = false, isBreOver01 = false, isBreBelow01 = false, isImageNormal01 = true,
-            isReady = false;
+    private final boolean isBreath01 = false;
+    private final boolean device2_connect = false;
+    private final boolean testMode = false;
+    private final boolean playCheck = false;
+    private final boolean isCali01 = false;
+    private final boolean isAdult = true;
+    private final boolean isReversed = false;
     private final ArrayList<Long> peakTimes = new ArrayList<Long>();
     ArrayList<Float> bpm1 = new ArrayList<>(), tmp_bpm1 = new ArrayList<>();
     private float position_bpm = 0f, div_interval;
-    private int position_num01, position_correct01, lung_num01, lung_correct01, interval = 100, minDepth = 55, maxDepth = 65,
-            frame_width, frame_interval, press_width, max_lung01 = 100, min_lung01 = 64, ventil_volume_01, bre_threshold01 = 69, over_breath01,
-            bre_level01, bre_level02, event_time, depth_correct, depth_num, angle01, position01, breath01;
-    private TextView remote_depth_text, remote_arrow_down_text, remote_arrow_up_text;
+    private int position_num01;
+    private int position_correct01;
+    private int lung_num01;
+    private int lung_correct01;
+    private final int minDepth = 45;
+    private final int maxDepth = 65;
+    private int frame_width;
+    private int frame_interval;
+    private int press_width;
+    private int ventil_volume_01;
+    private int depth_correct;
+    private int depth_num;
+    private int angle01;
+    private int position01;
+    private int breath01;
+    private TextView remote_arrow_down_text, remote_arrow_up_text;
     private ImageButton press_point_btn;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.ACCESS_FINE_LOCATION"};
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
@@ -171,11 +173,13 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
     private ImageView anne;
     private View depthCPR_view01;
     private LinearLayout cpr_layout_01;
-    private enum UsbPermission { Unknown, Requested, Granted, Denied }
+
+    private enum UsbPermission {Unknown, Requested, Granted, Denied}
+
     private static final int WRITE_WAIT_MILLIS = 2000;
     private static final int READ_WAIT_MILLIS = 2000;
 
-    private int baudRate = 28800;
+    private final int baudRate = 28800;
     private int deviceId, portNum;
     private boolean connected = false;
     private SerialInputOutputManager usbIoManager;
@@ -183,13 +187,14 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
     private UsbPermission usbPermission = UsbPermission.Unknown;
     private static final String INTENT_ACTION_GRANT_USB = BuildConfig.APPLICATION_ID + ".GRANT_USB";
     private String today = "";
-    private String startCommand = "%";
-    private String stopCommand = "&";
+    private final String startCommand = "%";
+    private final String stopCommand = "&";
+    private final MediaPlayerHandler mediaPlayerHandler = new MediaPlayerHandler();
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(INTENT_ACTION_GRANT_USB.equals(intent.getAction())) {
+            if (INTENT_ACTION_GRANT_USB.equals(intent.getAction())) {
                 usbPermission = intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)
                         ? UsbPermission.Granted : UsbPermission.Denied;
                 connect();
@@ -283,7 +288,6 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
 
         remote_arrow_down_text = findViewById(R.id.remote_arrow_down_text);
         remote_arrow_up_text = findViewById(R.id.remote_arrow_up_text);
-        remote_depth_text = findViewById(R.id.remote_depth_text);
 
         //showConnectDialog();
     }
@@ -291,7 +295,7 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
     @Override
     protected void onResume() {
         super.onResume();
-        if(!connected) {
+        if (!connected) {
             refresh();
         }
         registerReceiver(broadcastReceiver, new IntentFilter(INTENT_ACTION_GRANT_USB));
@@ -303,40 +307,40 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
         unregisterReceiver(broadcastReceiver);
     }
 
-    private void connect(){
+    private void connect() {
         UsbDevice device = null;
         UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-        for(UsbDevice v : usbManager.getDeviceList().values())
-            if(v.getDeviceId() == deviceId)
+        for (UsbDevice v : usbManager.getDeviceList().values())
+            if (v.getDeviceId() == deviceId)
                 device = v;
-        if(device == null) {
+        if (device == null) {
             connectProgressBar.setVisibility(View.INVISIBLE);
             Log.e(TAG, "connection failed: device not found");
             return;
         }
         UsbSerialDriver driver = UsbSerialProber.getDefaultProber().probeDevice(device);
-        if(driver == null) {
+        if (driver == null) {
             driver = CustomProber.getCustomProber().probeDevice(device);
         }
-        if(driver == null) {
+        if (driver == null) {
             connectProgressBar.setVisibility(View.INVISIBLE);
             Log.e(TAG, "connection failed: no driver for device");
             return;
         }
-        if(driver.getPorts().size() < portNum) {
+        if (driver.getPorts().size() < portNum) {
             connectProgressBar.setVisibility(View.INVISIBLE);
             Log.e(TAG, "connection failed: not enough ports at device");
             return;
         }
         usbSerialPort = driver.getPorts().get(portNum);
         UsbDeviceConnection usbConnection = usbManager.openDevice(driver.getDevice());
-        if(usbConnection == null && usbPermission == UsbPermission.Unknown && !usbManager.hasPermission(driver.getDevice())) {
+        if (usbConnection == null && usbPermission == UsbPermission.Unknown && !usbManager.hasPermission(driver.getDevice())) {
             usbPermission = UsbPermission.Requested;
             PendingIntent usbPermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(INTENT_ACTION_GRANT_USB), PendingIntent.FLAG_MUTABLE);
             usbManager.requestPermission(driver.getDevice(), usbPermissionIntent);
             return;
         }
-        if(usbConnection == null) {
+        if (usbConnection == null) {
             connectProgressBar.setVisibility(View.INVISIBLE);
             if (!usbManager.hasPermission(driver.getDevice()))
                 Log.e(TAG, "connection failed: permission denied");
@@ -347,9 +351,9 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
 
         try {
             usbSerialPort.open(usbConnection);
-            try{
+            try {
                 usbSerialPort.setParameters(baudRate, 8, 1, UsbSerialPort.PARITY_NONE);
-            }catch (UnsupportedOperationException e){
+            } catch (UnsupportedOperationException e) {
                 Log.e(TAG, "UnsupportedOperationException");
             }
             usbIoManager = new SerialInputOutputManager(usbSerialPort, this);
@@ -357,53 +361,56 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
 
             Log.e(TAG, "usbIoManager start");
             connected = true;
-          //  connectProgressBar.setVisibility(View.INVISIBLE);
-         //   connectDialog.dismiss();
+            //  connectProgressBar.setVisibility(View.INVISIBLE);
+            //   connectDialog.dismiss();
             showStart(this);
         } catch (Exception e) {
-        //    connectProgressBar.setVisibility(View.INVISIBLE);
+            //    connectProgressBar.setVisibility(View.INVISIBLE);
             disconnect();
         }
     }
-    private void disconnect(){
+
+    private void disconnect() {
         connected = false;
-        if(startDialog != null && startDialog.isShowing()){
+        if (startDialog != null && startDialog.isShowing()) {
             startDialog.dismiss();
         }
-        if(usbIoManager != null) {
+        if (usbIoManager != null) {
             usbIoManager.setListener(null);
             usbIoManager.stop();
         }
         usbIoManager = null;
         try {
             usbSerialPort.close();
-        } catch (IOException ignored) {}
-        catch (NullPointerException e){
+        } catch (IOException ignored) {
+        } catch (NullPointerException e) {
             Log.e(TAG, "null pointer exception");
         }
         usbSerialPort = null;
     }
 
-    private ArrayList<Integer> packet = new ArrayList<>();
+    private final ArrayList<Integer> packet = new ArrayList<>();
 
-    private void receive(byte[] data){
+    private void receive(byte[] data) {
+        Log.e(TAG, "receive: " + data.length);
         for (byte byteChar : data) {
             int result = Byte.toUnsignedInt(byteChar);
-            if(result == 3){
-                if(packet.size() == 3){
+            if (result == 3) {
+                if (packet.size() == 3) {
                     displayData(packet.get(1), packet.get(2));
                     packet.clear();
-                }else{
+                } else {
                     packet.add(result);
                 }
-            }else if(packet.size() == 0 || packet.get(0) == 2){
+            } else if (packet.size() == 0 || packet.get(0) == 2) {
                 packet.add(result);
             }
         }
     }
 
-    private void displayData(int position, int depth){
-        switch (position){
+    private void displayData(int position, int depth) {
+        boolean correction = true;
+        switch (position) {
             case 0:
             case 15:
                 final Animation animation00 = new TranslateAnimation(0, 0, 0, 0);
@@ -412,7 +419,6 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 press_point_btn.startAnimation(animation00);
                 position_num01++;
                 position_correct01++;
-
                 cpr_arrow01.setVisibility(View.INVISIBLE);
                 remote_arrow_up_text.setVisibility(View.INVISIBLE);
                 depth_btn_cpr_up.setBackground(getDrawable(R.drawable.anne_point));
@@ -423,10 +429,10 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 animation0.setFillAfter(false);
                 press_point_btn.startAnimation(animation0);
                 position_num01++;
-
                 cpr_arrow01.setVisibility(View.INVISIBLE);
                 remote_arrow_up_text.setVisibility(View.INVISIBLE);
                 depth_btn_cpr_up.setBackground(getDrawable(R.drawable.anne_point));
+                correction = false;
                 break;
             case 12:
                 final Animation animation2 = new TranslateAnimation(0, 100, 0, 0);
@@ -438,6 +444,7 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 cpr_arrow01.setVisibility(View.INVISIBLE);
                 remote_arrow_up_text.setVisibility(View.INVISIBLE);
                 depth_btn_cpr_up.setBackground(getDrawable(R.drawable.anne_point));
+                correction = false;
                 break;
             case 13:
                 final Animation animation3 = new TranslateAnimation(0, 0, 0, -100);
@@ -449,6 +456,7 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 cpr_arrow01.setVisibility(View.INVISIBLE);
                 remote_arrow_up_text.setVisibility(View.INVISIBLE);
                 depth_btn_cpr_up.setBackground(getDrawable(R.drawable.anne_point));
+                correction = false;
                 break;
             case 14:
                 final Animation animation4 = new TranslateAnimation(0, 0, 0, 100);
@@ -460,6 +468,7 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 cpr_arrow01.setVisibility(View.INVISIBLE);
                 remote_arrow_up_text.setVisibility(View.INVISIBLE);
                 depth_btn_cpr_up.setBackground(getDrawable(R.drawable.anne_point));
+                correction = false;
                 break;
             case 17:
                 final Animation animation7 = new TranslateAnimation(0, -100, 0, 0);
@@ -470,6 +479,8 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 cpr_arrow01.setVisibility(View.VISIBLE);
                 remote_arrow_up_text.setVisibility(View.VISIBLE);
                 depth_btn_cpr_up.setBackground(getDrawable(R.drawable.anne_point_red));
+                tryRelease++;
+                correction = false;
                 break;
             case 18:
                 final Animation animation8 = new TranslateAnimation(0, 100, 0, 0);
@@ -480,6 +491,8 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 cpr_arrow01.setVisibility(View.VISIBLE);
                 remote_arrow_up_text.setVisibility(View.VISIBLE);
                 depth_btn_cpr_up.setBackground(getDrawable(R.drawable.anne_point_red));
+                tryRelease++;
+                correction = false;
                 break;
             case 19:
                 final Animation animation9 = new TranslateAnimation(0, 0, 0, -100);
@@ -490,6 +503,8 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 cpr_arrow01.setVisibility(View.VISIBLE);
                 remote_arrow_up_text.setVisibility(View.VISIBLE);
                 depth_btn_cpr_up.setBackground(getDrawable(R.drawable.anne_point_red));
+                tryRelease++;
+                correction = false;
                 break;
             case 20:
                 final Animation animation10 = new TranslateAnimation(0, 0, 0, 100);
@@ -500,6 +515,8 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 cpr_arrow01.setVisibility(View.VISIBLE);
                 remote_arrow_up_text.setVisibility(View.VISIBLE);
                 depth_btn_cpr_up.setBackground(getDrawable(R.drawable.anne_point_red));
+                tryRelease++;
+                correction = false;
                 break;
             case 21:
                 final Animation animation11 = new TranslateAnimation(0, 0, 0, 0);
@@ -511,14 +528,17 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 cpr_arrow01.setVisibility(View.VISIBLE);
                 remote_arrow_up_text.setVisibility(View.VISIBLE);
                 depth_btn_cpr_up.setBackground(getDrawable(R.drawable.anne_point_red));
+                tryRelease++;
+                correction = false;
                 break;
+        }
+        if (tryRelease >= 3) {
+            mediaPlayerHandler.playingSound(this, MediaPlayerHandler.TRY_RELEASE);
+            tryRelease = 0;
         }
 
         if (!isReversed) {
             anne.setVisibility(View.VISIBLE);
-            if (isAdult) {
-                remote_depth_text.setVisibility(View.VISIBLE);
-            }
             cpr_ani01.setVisibility(View.VISIBLE);
             cpr_ani02.setVisibility(View.VISIBLE);
             standardCPR_btn01.setVisibility(View.VISIBLE);
@@ -546,15 +566,30 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 value = 70;
             else
                 value = depth;
-            remote_depth_text.setText(String.valueOf(value));
-            if ((0 < depth && depth < minDepth) || (maxDepth < depth)) {
-                cprItem01.add(new UserItem(Seconds_, depth, 0, angle01, position01));
+            if ((0 < value && value < minDepth) || (maxDepth < value)) {
+                cprItem01.add(new UserItem(Seconds_, value, 0, angle01, position01));
                 view01.setBackgroundColor(Color.parseColor("#FF4D4D"));
-            } else if (depth >= minDepth) {
-                cprItem01.add(new UserItem(Seconds_, 0, depth, angle01, position01));
+            } else if (value >= minDepth) {
+                cprItem01.add(new UserItem(Seconds_, 0, value, angle01, position01));
                 view01.setBackgroundColor(Color.parseColor("#4AFF5E"));
+                tooDeep = 0;
+                tooShallow = 0;
             }
-
+            if (maxDepth < value) {
+                tooDeep++;
+            } else if (value < minDepth) {
+                tooShallow++;
+            }
+            if (tooDeep >= 3) {
+                mediaPlayerHandler.playingSound(this, MediaPlayerHandler.TOO_DEEP);
+                tooDeep = 0;
+                tooShallow = 0;
+            }
+            if (tooShallow >= 3) {
+                mediaPlayerHandler.playingSound(this, MediaPlayerHandler.MORE_DEEP);
+                tooDeep = 0;
+                tooShallow = 0;
+            }
         })).start();
 
         int Depth_correct_sum01 = 0;
@@ -570,10 +605,14 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
         while (peakTimes.size() > 2) {
             peakTimes.remove(0);
         }
+        if(correction) {
+            correction = setBpm();
+        } else {
+            setBpm();
+        }
         long now2 = System.currentTimeMillis();
         now2 = now2 - (now2 % 10);
         peakTimes.add(now2);
-        setBpm();
         float presstime = (float) ((now2 - StartTime_L) / 1000.0f);
         pressTimeList01.add(presstime);
 
@@ -589,9 +628,11 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 animation = new TranslateAnimation(0, 0, 0, depth_true);
             if (depth < minDepth) {
                 animation = new TranslateAnimation(0, 0, 0, depth_false);
+                correction = false;
             }
             if (depth > maxDepth) {
                 animation = new TranslateAnimation(0, 0, 0, depth_over);
+                correction = false;
             }
 
             animation.setDuration(350);
@@ -639,12 +680,22 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 cpr_ani02.startAnimation(animation2);
             }
 
+            if (correction) {
+                correct++;
+            }
+
+            if (correct >= 5) {
+                mediaPlayerHandler.playingSound(this, MediaPlayerHandler.GOOD);
+                correct = 0;
+            }
+
             depth_btn01.startAnimation(animation);
             view01.startAnimation(animation);
         }
     }
 
-    void setBpm() {
+    boolean setBpm() {
+        boolean correct = true;
         float currentBpm = 0f;
         int peak_size = peakTimes.size();
 
@@ -652,22 +703,16 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
             long lastPeakTime = peakTimes.get(0);
             if (System.currentTimeMillis() - lastPeakTime <= 1500) {
                 float interval = (float) (peakTimes.get(1) - peakTimes.get(0));
-                while (tmp_bpm1.size() > 4) {
+                while (tmp_bpm1.size() > 9) {
                     tmp_bpm1.remove(0);
                 }
                 tmp_bpm1.add((60_000f / interval));
             } else {
-                try {
-                    if (peakTimes != null) {
-                        peakTimes.clear();
-                        tmp_bpm1.clear();
-                    }
-                } catch (Exception e) {
-                }
+                peakTimes.remove(0);
             }
         }
 
-        if (!tmp_bpm1.isEmpty() && tmp_bpm1.size() > 4) {
+        if (!tmp_bpm1.isEmpty() && tmp_bpm1.size() > 1) {
             float tmp_bpm = 0;
             for (float bpm : tmp_bpm1)
                 tmp_bpm += bpm;
@@ -680,6 +725,9 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
             if (currentBpm > 140) {
                 float XDelta = (float) frame_width - press_width;
                 animation = new TranslateAnimation(position_bpm, XDelta, 0, 0);
+                if (position_bpm == 0f) {
+                    animation.setInterpolator(new AccelerateDecelerateInterpolator());
+                }
                 position_bpm = XDelta;
             } else if (currentBpm >= 120) {
                 float XDelta = frame_interval * 3 + (currentBpm - 120) * div_interval;
@@ -692,18 +740,27 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 if (XDelta > frame_width - press_width)
                     XDelta = frame_width - press_width;
                 animation = new TranslateAnimation(position_bpm, XDelta, 0, 0);
+                if (position_bpm == 0f) {
+                    animation.setInterpolator(new AccelerateDecelerateInterpolator());
+                }
                 position_bpm = XDelta;
             } else if (currentBpm >= 100) {
                 float XDelta = frame_interval + (currentBpm - 100) * div_interval;
                 if (XDelta > frame_width - press_width)
                     XDelta = frame_width - press_width;
                 animation = new TranslateAnimation(position_bpm, XDelta, 0, 0);
+                if (position_bpm == 0f) {
+                    animation.setInterpolator(new AccelerateDecelerateInterpolator());
+                }
                 position_bpm = XDelta;
             } else {
                 animation = new TranslateAnimation(position_bpm, currentBpm * div_interval / 10, 0, 0);
+                if (position_bpm == 0f) {
+                    animation.setInterpolator(new AccelerateDecelerateInterpolator());
+                }
                 position_bpm = currentBpm * div_interval / 10;
             }
-            animation.setDuration(200);
+            animation.setDuration(350);
             animation.setFillAfter(true);
             press_ave_btn01.startAnimation(animation);
 
@@ -713,27 +770,39 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 press_ave_btn01.setBackgroundResource(R.drawable.position_press_green);
             }
 
+            if (currentBpm > 120) {
+                correct = false;
+                mediaPlayerHandler.playingSound(this, MediaPlayerHandler.TOO_FAST);
+            }
+
+            if (currentBpm < 100) {
+                correct = false;
+                mediaPlayerHandler.playingSound(this, MediaPlayerHandler.MORE_FAST);
+            }
+
         } else {
             animation = new TranslateAnimation(position_bpm, 0, 0, 0);
-            animation.setDuration(400);
+            animation.setDuration(350);
             animation.setFillAfter(true);
             position_bpm = 0;
             press_ave_btn01.startAnimation(animation);
             press_ave_btn01.setBackgroundResource(R.drawable.position_press_red);
         }
+
+        return correct;
     }
 
-    private class USBDeviceListAdapter extends BaseAdapter{
-        private ArrayList<ListItem> mLeDevices;
-        private LayoutInflater mInflater;
+    private class USBDeviceListAdapter extends BaseAdapter {
+        private final ArrayList<ListItem> mLeDevices;
+        private final LayoutInflater mInflater;
 
-        public USBDeviceListAdapter(){
+        public USBDeviceListAdapter() {
             super();
             mLeDevices = new ArrayList<>();
             mInflater = CPRActivity.this.getLayoutInflater();
         }
 
-        public ListItem getDevice(int position){
+        public ListItem getDevice(int position) {
             return mLeDevices.get(position);
         }
 
@@ -794,7 +863,7 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
 
     public class BackPressCloseHandler {
         private final Activity activity;
-        private long backKeyPressedTime;
+        private final long backKeyPressedTime;
         private Toast toast;
 
         public BackPressCloseHandler(Activity context) {
@@ -808,7 +877,8 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
 
     private ProgressBar connectProgressBar;
     private AlertDialog connectDialog;
-    private void showConnectDialog(){
+
+    private void showConnectDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(CPRActivity.this);
         LayoutInflater inflater = getLayoutInflater();
 
@@ -835,21 +905,21 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
         connectDialog.show();
     }
 
-    private void refresh(){
+    private void refresh() {
         UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
         UsbSerialProber usbDefaultProber = UsbSerialProber.getDefaultProber();
         UsbSerialProber usbCustomProber = CustomProber.getCustomProber();
         usbDeviceListAdapter.clear();
-        for(UsbDevice device : usbManager.getDeviceList().values()) {
+        for (UsbDevice device : usbManager.getDeviceList().values()) {
             UsbSerialDriver driver = usbDefaultProber.probeDevice(device);
-            if(driver == null) {
+            if (driver == null) {
                 driver = usbCustomProber.probeDevice(device);
             }
-            if(driver != null) {
+            if (driver != null) {
                 //vendorId = 4292, productId = 60000, prooductname = CP2102 USB to UART Bridge Controller, getManufacturerName = Silicon Labs
-               // for(int port = 0; port < driver.getPorts().size(); port++) //vendor = 4294 port = 60000
-             //       usbDeviceListAdapter.addDevice(new ListItem(device, port, driver));
-                if(device.getVendorId() == 4292 && device.getProductId() == 60000){
+                // for(int port = 0; port < driver.getPorts().size(); port++) //vendor = 4294 port = 60000
+                //       usbDeviceListAdapter.addDevice(new ListItem(device, port, driver));
+                if (device.getVendorId() == 4292 && device.getProductId() == 60000 && !connected) {
                     deviceId = device.getDeviceId();
                     portNum = 0;
                     connect();
@@ -861,6 +931,7 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
 
         usbDeviceListAdapter.notifyDataSetChanged();
     }
+
     private Button startbtn;
     private AlertDialog startDialog;
     private boolean isStartClicked = false;
@@ -873,7 +944,7 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
         startbtn = (NeumorphButton) view.findViewById(R.id.show_start_01);
 
         startbtn.setOnClickListener(view1 -> {
-            if(!isStartClicked) start();
+            if (!isStartClicked) start();
             isStartClicked = true;
         });
 
@@ -885,7 +956,7 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
             startDialog.show();
     }
 
-    private void start(){
+    private void start() {
         new Thread(() -> {
             for (int i = 5; i >= 0; i--) {
                 try {
@@ -938,12 +1009,12 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
         }).start();
     }
 
-    private void send(String str){
-        try{
+    private void send(String str) {
+        try {
             byte[] data = (str).getBytes();
             usbSerialPort.write(data, WRITE_WAIT_MILLIS);
-            Log.e(TAG, "write "+str);
-        }catch (Exception e){
+            Log.e(TAG, "write " + str);
+        } catch (Exception e) {
             onRunError(e);
         }
     }
@@ -956,41 +1027,23 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
     }
 
     //TODO Timer
-    private Runnable runnable = new Runnable() {
+    private final Runnable runnable = new Runnable() {
 
         public void run() {
             int event_time = 60;
-            //Log.e("event_time", String.valueOf(event_time));
-
             MillisecondTime = SystemClock.uptimeMillis() - StartTime;
-
             UpdateTime = TimeBuff + MillisecondTime;
-
-            //Log.e("update_time", String.valueOf(UpdateTime / 1000));
-
-            //Seconds_ = event_time - (int) (UpdateTime / 1000);
-
             Seconds_ = (int) (UpdateTime / 1000);
-
-            //MilliSeconds = (int) (UpdateTime % 1000);
-
             mSeconds_ = event_time - (int) (UpdateTime / 1000);
-
             Minutes = mSeconds_ / 60;
-
             Seconds = mSeconds_ % 60;
-
-            /*Log.e("Minutes_time", String.valueOf(Minutes));
-            Log.e("Seconds_time", String.valueOf(Seconds));*/
-
-            if(Seconds_ == 60){
+            if (Seconds_ == event_time) {
                 reset(2);
+            } else {
+                cpr_timer.setText(String.format("%02d", Minutes) + " : "
+                        + String.format("%02d", Seconds));
+                handler.postDelayed(this, 0);
             }
-
-            cpr_timer.setText("" + String.format("%02d", Minutes) + " : "
-                    + String.format("%02d", Seconds));
-
-            handler.postDelayed(this, 0);
 
             long now = System.currentTimeMillis() - interval01;
             float secs = now / 1000.0f;
@@ -1000,7 +1053,10 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                         max_secs = secs;
                     handOff_01 = Seconds_;
                 }
-                if (!isBreath01) {
+                if(bpmZeroFlag) {
+                    transBPMtoZero();
+                }
+                if (!isBreath01 && cpr_arrow01.getVisibility() == View.INVISIBLE) {
                     depth_btn_cpr_up.setBackground(getDrawable(R.drawable.anne_point));
                     cpr_arrow01_.setVisibility(View.VISIBLE);
                     remote_arrow_down_text.setVisibility(View.VISIBLE);
@@ -1015,9 +1071,24 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
                 handOff_01 = Seconds_;
                 cpr_arrow01_.setVisibility(View.INVISIBLE);
                 remote_arrow_down_text.setVisibility(View.INVISIBLE);
+                if(!bpmZeroFlag){
+                    bpmZeroFlag = true;
+                }
             }
         }
     };
+
+    private void transBPMtoZero(){
+        Animation animation = new TranslateAnimation(position_bpm, 0, 0, 0);
+        animation.setDuration(2800);
+        animation.setFillAfter(true);
+        position_bpm = 0;
+        press_ave_btn01.startAnimation(animation);
+        press_ave_btn01.setBackgroundResource(R.drawable.position_press_red);
+        bpmZeroFlag = false;
+    }
+
+    private boolean bpmZeroFlag = true;
 
     private void reset(int set) {
         TimeBuff += MillisecondTime;
@@ -1026,7 +1097,6 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
         lung01.setVisibility(View.INVISIBLE);
         test_lung01.setVisibility(View.INVISIBLE);
         anne.setVisibility(View.VISIBLE);
-        remote_depth_text.setVisibility(View.VISIBLE);
         cpr_ani01.setVisibility(View.VISIBLE);
         cpr_ani02.setVisibility(View.VISIBLE);
         standardCPR_btn01.setVisibility(View.VISIBLE);
@@ -1034,15 +1104,11 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
         depth_btn_cpr_up.setVisibility(View.VISIBLE);
         depthCPR_view01.setVisibility(View.VISIBLE);
         press_position.setVisibility(View.VISIBLE);
-
         send(stopCommand);
-
-        // runHander(false);
 
         if (set == 2) {
             if (max_secs != 0)
                 cprItem01.add(new UserItem(Seconds_, max_secs, 0));
-
             try {
                 ReportItem reportItem = report_setting(cprItem01, "", pressTimeList01, breathVal01, breathTime01, String.valueOf(ventil_volume_01),
                         String.valueOf(cycle_01), String.valueOf(score_01),
@@ -1073,16 +1139,10 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
         mSeconds_ = 0;
         max_secs = 0.0f;
         position01 = 0;
-
         breath01 = 0;
-
         cpr_timer.setText("00:00");
-
         cpr_arrow01.setVisibility(View.INVISIBLE);
-
         cpr_arrow01_.setVisibility(View.INVISIBLE);
-
-        remote_depth_text.setText("0");
         remote_arrow_down_text.setVisibility(View.INVISIBLE);
         remote_arrow_up_text.setVisibility(View.INVISIBLE);
 
@@ -1103,7 +1163,6 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
         ventil_volume_01 = 0;
 
         if (set == 1) {
-            Intent intent;
             mConnected = false;
             finish();
             overridePendingTransition(R.anim.fadeout, R.anim.fadein);
@@ -1185,7 +1244,7 @@ public class CPRActivity extends AppCompatActivity implements SerialInputOutputM
 
         int up_depth = (int) (100 - ((double) position_six / (double) Depth_size) * 100);
         int position_;
-        position_ = (int) (((double) position / (double) Depth_size) * 100);
+        position_ = (int) ((Double.parseDouble(position_correct) / Double.parseDouble(position_num)) * 100);
 
         int bpm = 0;
         if (gBpm.size() > 0) {
